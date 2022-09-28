@@ -17,6 +17,8 @@ Doing so will retrieve the definition of the value found in the `<word>` paramet
 
 ## FAQs
 *Q: What languages are supported by tongues?"*
+
 A: Currently, only english. This might change as the app evolves. To add a new language, an API or database would be required containing the information for that language.
 
-
+## Acknowledgements
+Dictionary data is provided by [https://dictionaryapi.dev](https://dictionaryapi.dev/)
