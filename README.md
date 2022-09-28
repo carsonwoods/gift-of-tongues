@@ -1,6 +1,6 @@
 # Gift of Tongues
 Or simply called "tongues", is a very small application written in Rust to quickly lookup the meaning of a word.
-Currently, only english is supported, though this may change over time.
+Currently, only english is supported, though this may change over time as more dictionaries are added.
 
     
 ## Installation Guide
