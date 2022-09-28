@@ -28,6 +28,10 @@ struct Args {
     /// disable local definition caching
     #[clap(long, action)]
     disable_caching: bool,
+
+    /// clean local cache
+    #[clap(long, action)]
+    clean_cache: bool,
 }
 
 // basic settings struct, used to store values from confy
@@ -78,6 +82,12 @@ async fn main() -> Result<(), Box<dyn Error>> {
         }
     };
 
+    if args.clean_cache {
+        let cache_path = cfg_path.join("cache");
+        fs::remove_dir_all(cache_path)?;
+        std::process::exit(0);
+    }
+
     // handles the enabling/disabling of caching of dictionary data
     if args.enable_caching && args.disable_caching {
         eprintln!("Error: you cannot enable and disable caching simultaneously");
@@ -122,11 +132,11 @@ async fn main() -> Result<(), Box<dyn Error>> {
             data = serde_json::from_str(&file_data).expect("JSON was not well-formatted");
         } else {
             // if the previous file does not exist, attempt to create a new directory for the data
-            std::fs::create_dir_all(cache_path.parent().unwrap()).unwrap();
+            fs::create_dir_all(cache_path.parent().unwrap()).unwrap();
             let url = String::from("https://api.dictionaryapi.dev/api/v2/entries/en/") + &word;
             data = reqwest::get(url).await?.json::<serde_json::Value>().await?;
             // Save the JSON structure into the other file.
-            std::fs::write(cache_path, serde_json::to_string_pretty(&data).unwrap()).unwrap();
+            fs::write(cache_path, serde_json::to_string_pretty(&data).unwrap()).unwrap();
         }
     } else {
         let url = String::from("https://api.dictionaryapi.dev/api/v2/entries/en/") + &word;
