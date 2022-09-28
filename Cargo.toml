@@ -1,8 +1,16 @@
 [package]
 name = "gift-of-tongues"
+author = "Carson Woods"
 version = "0.1.0"
 edition = "2021"
+license = "MIT"
+license-file = "LICENESE"
+readme = "README.md"
+description = "A very small CLI utility for looking up the meaning of English words"
+homepage = "https://github.com/carsonwoods/gift-of-tongues"
+repository = "https://github.com/carsonwoods/gift-of-tongues"
 
+        
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
