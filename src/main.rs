@@ -12,6 +12,10 @@ use std::error::Error;
 struct Args {
     /// word to lookup the definition for
     word: String,
+
+    /// Show phonetic pronounciation information
+    #[clap(long, short, action)]
+    phonetic: bool,
 }
 
 #[tokio::main]
@@ -39,6 +43,16 @@ async fn main() -> Result<(), Box<dyn Error>> {
         .unwrap_or("Error: no definition found");
 
     println!("{}: {}", word, definition);
+
+    if args.phonetic {
+        println!(
+            "Phonetic: {:?}",
+            data.get(0)
+                .and_then(|value| value.get("phonetic"))
+                .and_then(|value| value.as_str())
+                .unwrap_or("phonetic information not found")
+        );
+    }
 
     Ok(())
 }
