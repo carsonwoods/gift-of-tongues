@@ -2,10 +2,15 @@ use clap::Parser;
 use std::error::Error;
 
 #[derive(Parser, Debug)]
-#[clap(author, version, about, long_about = None)]
+#[clap(
+    author,
+    version,
+    about,
+    long_about = "Dictionary data is provided by: https://api.dictionaryapi.dev"
+)]
 /// Dictionary Lookup Tool
 struct Args {
-    /// Name of the person to greet
+    /// word to lookup the definition for
     word: String,
 }
 
@@ -22,7 +27,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
         .and_then(|value| value.get("word"))
         .and_then(|value| value.as_str())
         .unwrap_or("Error: word not found");
-    
+
     let definition = data
         .get(0)
         .and_then(|value| value.get("meanings"))
